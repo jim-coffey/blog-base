@@ -1,0 +1,29 @@
+<article-meta article="$ctrl.article">
+  <!-- If current user is the author, show edit/delete buttons -->
+  <span ng-show="$ctrl.canModify">
+    <a class="btn btn-sm btn-outline-secondary"
+       ui-sref="app.editor({ slug: $ctrl.article.slug })">
+      <i class="ion-edit"></i>
+      &nbsp;
+      Edit Article
+    </a>
+    &nbsp;
+    <button class="btn btn-sm btn-outline-danger"
+            ng-class="{disabled: $ctrl.isDeleting}"
+            ng-click="$ctrl.deleteArticle()">
+      <i class="ion-trash-a"></i>
+      &nbsp;
+      Delete Article
+    </button>
+  </span>
+
+  <!-- Otherwise, show favourite & follow buttons -->
+  <span ng-hide="$ctrl.canModify">
+    <follow-btn user="$ctrl.article.author"></follow-btn>
+    &nbsp;
+    <favourite-btn article="$ctrl.article">
+      {{ $ctrl.article.favorited ? 'Unfavourite' : 'Favourite' }}
+      Article <span class="counter">({{ $ctrl.article.favoritesCount }})</span>
+    </favourite-btn>
+  </span>
+</article-meta>
